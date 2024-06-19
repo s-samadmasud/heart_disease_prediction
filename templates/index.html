@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction CENTER</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #e9ecef;
+        }
+        .logo {
+        width: 50px;
+        height: 50px;
+        color: black;
+        margin-top: 0;
+        margin-left: 2px;
+    }
+
+    .myimg {
+        width: 50px;
+        height: 50px;
+        border: 2px solid black;
+        border-radius: 25px;
+    }
+    </style>
+</head>
+<body>
+     <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- Logo at the top-left corner -->
+            <div class="logo">
+                <img class="myimg" src="{{ url_for('static', filename='heartdisease.png') }}" alt="">
+            </div>
+
+            <a class="navbar-brand" href="#">HPD Center</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/about" target="_blank">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/contact" target="_blank">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/blog" target="_blank">Blog</a>
+                    </li>
+                  </ul>
+                
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center">Heart Disease!!!</h1>
+        <div class="form-container">
+            <form action="/predict" method="post">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="male">Gender:</label>
+                        <select class="form-control" id="male" name="male">
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="age">Age:</label>
+                        <input type="number" class="form-control" id="age" name="age">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="currentSmoker">Current Smoker:</label>
+                        <select class="form-control" id="currentSmoker" name="currentSmoker">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="cigsPerDay">Cigarettes Per Day:</label>
+                        <input type="number" class="form-control" id="cigsPerDay" name="cigsPerDay">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="BPMeds">BP Medications:</label>
+                        <select class="form-control" id="BPMeds" name="BPMeds">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="prevalentStroke">Prevalent Stroke:</label>
+                        <select class="form-control" id="prevalentStroke" name="prevalentStroke">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="prevalentHyp">Prevalent Hypertension:</label>
+                        <select class="form-control" id="prevalentHyp" name="prevalentHyp">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="diabetes">Diabetes:</label>
+                        <select class="form-control" id="diabetes" name="diabetes">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="totChol">Total Cholesterol:</label>
+                        <input type="number" class="form-control" id="totChol" name="totChol">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="sysBP">Systolic BP:</label>
+                        <input type="number" class="form-control" id="sysBP" name="sysBP">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="diaBP">Diastolic BP:</label>
+                        <input type="number" class="form-control" id="diaBP" name="diaBP">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="BMI">BMI:</label>
+                        <input type="number" class="form-control" id="BMI" name="BMI" step="0.01">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="heartRate">Heart Rate:</label>
+                        <input type="number" class="form-control" id="heartRate" name="heartRate">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="glucose">Glucose Level:</label>
+                        <input type="number" class="form-control" id="glucose" name="glucose">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Predict</button>
+            </form>
+        </div>
+        {% if prediction %}
+        <div class="result">
+            <h2>Prediction Result</h2>
+            <p><strong>{{ prediction }}</strong></p>
+        </div>
+        {% endif %}
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
